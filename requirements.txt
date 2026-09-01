@@ -1,0 +1,6 @@
+# Python 3.10 이상 필요
+#   python3 -m pip install -r requirements.txt
+#   ('pip' 이 아니라 'python3 -m pip'. 서버를 띄우는 python3 와 같아야 합니다)
+
+mcp[cli]>=2.0
+uv>=0.5

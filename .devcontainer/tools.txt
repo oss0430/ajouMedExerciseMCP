@@ -1,0 +1,6 @@
+# uvx 로 미리 받아둘 MCP 서버. 한 줄에 하나. # 주석·빈 줄 무시.
+#   sed -e 's/#.*//' -e '/^[[:space:]]*$/d' tools.txt | xargs -r -n1 uv tool install
+#
+# 이번 개편(2교시 연계)에서 로컬 fetch 서버는 더 쓰지 않습니다.
+# 3단계는 원격 OLS(http), 4단계는 gh/npx 스킬 설치라 uvx 서버가 필요 없습니다.
+# (mcp-server-fetch 제거)

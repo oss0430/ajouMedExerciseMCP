@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+*.bak
+.venv/
+.runs.json
+agent_lab/.runs.json
+
+# 강사 준비 파일 — 학생 배포본(codespace clone)에 넣지 않음
+HANDOFF.md
+agent_lab/REHEARSAL.md
+agent_lab/REHEARSAL_LOG.md
+agent_lab/INSTRUCTOR.md
+
+# 개인/로컬 · 배포 제외
+.claude/settings.local.json
+*.swp
+
+# 4단계에서 학생이 직접 설치하는 스킬 — 배포에 미포함
+.claude/skills/

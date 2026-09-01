@@ -1,0 +1,29 @@
+{
+  "name": "ajou-omics-env (2일차)",
+
+  // 설치는 전부 Dockerfile 에서 끝냅니다.
+  // context 가 ".." 여야 루트의 requirements.txt 가 COPY 됩니다.
+  "build": { "dockerfile": "Dockerfile", "context": ".." },
+
+  // 4단계(스킬 설치)용. gh 2.90+ 의 'gh skill', 그리고 npx(node).
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
+
+  // 저장소가 마운트된 뒤에만 할 수 있는 일 — 점검 — 만 남깁니다.
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "anthropic.claude-code"],
+      "settings": { "terminal.integrated.defaultProfile.linux": "bash" }
+    }
+  },
+
+  "remoteEnv": {
+    "PATH": "/home/vscode/.local/bin:${containerEnv:PATH}"
+  },
+
+  "hostRequirements": { "cpus": 2, "memory": "8gb" }
+}

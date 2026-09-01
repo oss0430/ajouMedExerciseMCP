@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./agent_lab/server.py)",
+      "Read(./agent_lab/reference/**)",
+      "Read(./HANDOFF.md)",
+      "Read(./agent_lab/REHEARSAL.md)",
+      "Read(./agent_lab/REHEARSAL_LOG.md)",
+      "Read(./agent_lab/INSTRUCTOR.md)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git diff:*)",
+      "Bash(git blame:*)",
+      "Bash(git reflog:*)",
+      "Bash(git stash:*)"
+    ]
+  }
+}
