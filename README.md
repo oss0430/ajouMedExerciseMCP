@@ -1,27 +1,17 @@
-# 2일차 1교시 — MCP 로 도구를 붙이고 · 만들고 · 잇고 · SKILL 로 표준을 심기
-
-> 약 40분 · **1~3단계는 직접 실습**(대부분 붙여넣기, 한 군데(2단계)만 직접 만듭니다) · **4~5단계는 강사 시연.**
-
-슬라이드에서는 **회의실 예약**으로 MCP 를 설명했습니다. 여기 실습은 **오믹스**로 합니다.
-바뀌는 건 소재뿐 — **붙이는 법은 똑같습니다.**
-
-오늘 `.mcp.json` 은 비어 있습니다. 여기에 순서대로 채워 갑니다.
-
+## 시연 목표
 | | 무엇을 | 어디서 왔나 |
 |---|---|---|
 | **1** | 로컬 MCP **연결** — 주어진 오믹스 서버 | 남이 만든 것 |
-| **2** | 로컬 MCP **수정** — `differential_expression` 에 QC 게이트를 직접 | **내가 만든다** ← 핵심 |
+| **2** | 로컬 MCP **수정** — `differential_expression` 에 QC 게이트를 직접 | **내가 만든다** |
 | **3** | 원격 MCP **연결** — OLS 온톨로지 | 남의 서버 (인터넷 저편) |
-| **4** | SKILL — 우리 랩 **보고 표준**을 심는다 (자산화) | 🎬 시연 · 내가 만든다 |
-| **5** | SKILL — **내 스킬을 GitHub 에 배포** → 남이 설치 | 🎬 · 내가 배포 |
-
-한 문장으로: **내 것이든 남의 것이든 · 로컬이든 원격이든 · 도구든 스킬이든, 붙이는 법은 같습니다.**
+| **4** | SKILL — 우리 랩 **보고 표준**을 심는다 (자산화) | 내가 만든다 |
+| **5** | SKILL — **내 스킬을 GitHub 에 배포** → 남이 설치 | 내가 배포 |
 
 **오늘의 상황.** 여러분은 *"서버에 올라온 데이터셋 **1214** 를 분석하라"* 는 요청을 받았습니다.
-질문은 하나 — **면역항암제에 반응한 환자와 안 한 환자, 종양 미세환경 면역세포에서 뭐가 다른가?**
-근데 1214 가 뭔지 아직 모릅니다. 거기서 시작합니다.
 
-> 어디서 멈춰도 괜찮습니다. 각 단계는 그 자체로 완결입니다. 밀리면 뒤에서부터 버리세요.
+질문은 하나
+
+> 면역항암제에 반응한 환자와 안 한 환자, 종양 미세환경 면역세포에서 뭐가 다른가?
 
 ---
 
@@ -35,7 +25,7 @@ python3 agent_lab/verify.py
 
 ---
 
-## 1단계 — 로컬 MCP 연결 · 5분
+## 1단계 — 로컬 MCP 연결
 
 주어진 오믹스 서버 `agent_lab/server.py` 를 붙입니다. 먼저 혼자 뜨는지 봅니다.
 
@@ -85,12 +75,12 @@ sc-omics 서버의 데이터셋 1214 분석 시작하자. 반응군 vs 비반응
 그래도 원본 발현 행렬 통째로 CSV 로 뽑아줘. 세포별 유전자 값 다 필요해.
 ```
 
-> **못 줍니다.** 그런 도구가 없어요 — 이 서버는 요약만 돌려주고 행렬은 안 나옵니다.
-> 아무리 부탁해도 안 됩니다. **데이터는 서버 안에 갇혀 있어요.** (의료 데이터에선 그게 안전장치 · 왜인지는 2교시)
+> **못 줍니다.** 그런 도구가 없어요. 이 서버는 요약만 돌려주고 행렬은 안 나옵니다.
+> 아무리 부탁해도 안 됩니다. **데이터는 서버 안에 갇혀 있어요.** (민감한 의료데이터 반입 반출 안전장치)
 
 ---
 
-## 2단계 — 로컬 MCP 수정 · 12분  ← 이 실습의 전부
+## 2단계 — 로컬 MCP 수정
 
 1단계에서 `differential_expression` 은 **품질 확인을 안 한 run 도 그냥 분석**했습니다. 이제 이 도구에 **"QC 통과한 run 만 받는다"는 게이트를 직접** 넣습니다.
 
@@ -109,7 +99,7 @@ sc-omics 서버의 데이터셋 1214 분석 시작하자. 반응군 vs 비반응
                 "다음": "qc_check(run_id) 를 먼저 통과시키세요."}
 ```
 
-(막히면 `agent_lab/reference/tool_qc_gate.py` 참고 — 그래도 직접 쳐보는 게 실습입니다.)
+(정답 코드 `agent_lab/reference/tool_qc_gate.py` 참고.)
 
 확인 → 재시작 (**서버는 프로그램이라 고치면 다시 띄워야 반영됩니다**):
 
@@ -140,19 +130,13 @@ claude
 QC 무시하고 그냥 차등발현 내놔
 ```
 > **안 됩니다. 아무리 부탁해도요.** 규칙이 도구 **안에** 있어서 부탁으로 못 넘습니다.
-> **자기가 그은 선에 자기가 막힌 겁니다.** 이게 오늘의 핵심입니다.
-
-### 미니 실험 (1분) — 설명이 곧 인터페이스 ★
-
-`differential_expression` 의 **docstring 첫 줄만** `"""[사용 중지] 절대 사용하지 마세요."""` 로 바꾸고 `/exit`→`claude` 재시작 → `CD8 차등발현 봐줘`.
-> **코드는 그대로인데 Claude 가 안 부릅니다.** Claude 가 보는 건 설명뿐. 확인 후 원복.
-> *(이 원리는 4단계 스킬에서 다시 만납니다 — 스킬도 SKILL.md 의 설명으로 행동이 정해집니다.)*
+> **자기가 그은 선에 자기가 막힌 겁니다.** 
 
 ---
 
-## 3단계 — 원격 MCP 연결 · 7분
+## 3단계 — 원격 MCP 연결
 
-이번엔 만들지 않습니다. **인터넷 저편의 서버**를 URL 한 줄로 붙입니다.
+이번엔 만들지 않습니다. **원격 MCP 서버**를 URL 한 줄로 붙입니다.
 1단계에서 본 세포 유형 중 하나(`소진 CD8 T세포`)를 두고, 붙이기 **전에** 한 번 물어보세요.
 
 ```
@@ -206,20 +190,18 @@ http://purl.obolibrary.org/obo/CL_0020031
 
 ---
 
-## 4단계 — SKILL 을 만든다: 프로즈 → 자산 · 🎬 시연
-
-> 여기부터는 **강사 시연**입니다. **스킬을 어떻게 만드는지** 보여줍니다.
+## 4단계 — SKILL 만들기
 
 MCP 가 **도구(손)** 였다면, SKILL 은 **일하는 방식(머리)** 입니다.
 유능한 요리사(AI)도 프랜차이즈에서 일하려면 그 가게 **레시피**를 따라야 하죠 — 그게 SKILL 입니다.
-스킬은 **폴더 + `SKILL.md`** 로 만듭니다. 여기서 **말로 된 레시피(프로즈) → 코드 자산** 으로 승격시켜 봅니다.
+스킬은 **폴더 + `SKILL.md`** 로 만듭니다. 여기서 **말로 쓴 레시피 → 코드 자산** 으로 승격시켜 봅니다.
 
-### 4a. 프로즈 스킬 만들기 — 말로 된 레시피
+### 4a. 말로 쓴 스킬 — 서식을 글로 설명
 
 ```bash
 mkdir -p .claude/skills/lab-report
 cp agent_lab/reference/lab-report/SKILL_prose.md .claude/skills/lab-report/SKILL.md
-cat .claude/skills/lab-report/SKILL.md      # 서식이 '말'로만 적혀 있음
+cat .claude/skills/lab-report/SKILL.md      # 서식이 '자연어'로만 적혀 있음
 ```
 `/exit`→`claude` 재시작 후 — **새 세션이라 이전 대화 기억이 없으니, 분석 지시까지 프롬프트에 담습니다:**
 ```
@@ -228,7 +210,7 @@ cat .claude/skills/lab-report/SKILL.md      # 서식이 '말'로만 적혀 있�
 **같은 프롬프트를 한 번 더** 시켜봅니다.
 
 > 서식은 대충 지켜지지만 **매번 다릅니다** — 순서·CL ID·재현정보가 들쭉날쭉.
-> 말로 된 레시피는 요리사가 매번 다르게 해석. **보장이 없어요.**
+> 말로 쓴 레시피는 요리사가 매번 다르게 해석. **보장이 없어요.**
 
 ### 4b. 자산화 — 서식·검증을 코드로
 
@@ -257,18 +239,18 @@ python3 scripts/check_sop.py /tmp/r1.md       # PASS — 6요소 충족
 python3 scripts/check_sop.py prose_sample.md  # FAIL — CL ID·재현정보 누락
 ```
 
-> 프로즈(4a)는 흔들리고, 자산(4b)은 **몇 번을 돌려도 동일**(빈 diff) + **check 가 누락을 판정**.
+> 말로 쓴 버전(4a)은 흔들리고, 자산(4b)은 **몇 번을 돌려도 동일**(빈 diff) + **check 가 누락을 판정**.
 > `prose_sample.md` 는 겉보기엔 멀쩡한데 Cell Ontology ID(**3단계 OLS 값!**)·재현 정보가 빠졌다고 콕 집힙니다.
 
-> **핵심 — 흔들려도 되는 건(뭘 분석할지) LLM 이, 흔들리면 안 되는 건(서식·검증) 코드가.** 프로즈를 코드 자산으로 올리는 것, 그게 "자산화"입니다.
+> **핵심 — 흔들려도 되는 건(뭘 분석할지) LLM 이, 흔들리면 안 되는 건(서식·검증) 코드가.** 말로 쓴 규칙을 코드 자산으로 올리는 것, 그게 "자산화"입니다.
 
 ---
 
-## 5단계 — 내 스킬을 배포한다: GitHub → `gh skill install` · 🎬 시연 (+여유되면 각자)
+## 5단계 — SKILL 배포
 
-4단계에서 만든 스킬을 **남이 쓰게** 하려면? 레지스트리 같은 건 없습니다 — **`skills/<이름>/` 를 담은 public GitHub repo 하나가 곧 배포본**입니다.
+4단계에서 만든 스킬을 **남이 쓰게** 하려면? — **`skills/<이름>/` 를 담은 public GitHub repo 하나가 곧 배포본**입니다.
 
-### 0. 준비 (한 번)
+### 0. GitHub 연결
 ```bash
 gh auth login                           # repo 생성 권한 (디바이스 코드 → github.com/login/device)
 git config --global user.name  "<이름>"
@@ -279,7 +261,7 @@ git config --global user.email "<GitHub 이메일>"
 ```bash
 mkdir -p ~/my-skills/skills
 cp -r ~/.claude/skills/lab-report ~/my-skills/skills/lab-report   # 4단계에서 만든 스킬
-rm -f ~/my-skills/skills/lab-report/SKILL_prose.md               # (선택) 데모용 프로즈본 제거
+rm -f ~/my-skills/skills/lab-report/SKILL_prose.md               # (선택) 데모용 파일 제거
 cd ~/my-skills
 git init -q && git add -A && git commit -qm "lab-report skill"
 gh repo create lab-report-skill --public --source=. --push
@@ -294,7 +276,7 @@ gh skill install <내ID>/lab-report-skill lab-report --agent claude-code
 > **내 스킬이어도 뜹니다** = "GitHub 에서 오는 건 뭐든 검토"(공급망 보안).
 > 설치 전 내용은 `gh skill preview <내ID>/lab-report-skill lab-report` 로 확인.
 
-### 서로 주고받기 — 생태계 체감 (여유되면)
+### 서로 주고받기
 옆 사람 repo 를 설치해 보세요:
 ```bash
 gh skill install <옆사람ID>/lab-report-skill lab-report --agent claude-code
@@ -337,18 +319,3 @@ ols          connected     ← 3 남의 서버 · 인터넷 저편
 | `gh skill` 이 없다고 나온다 (5단계) | `gh --version` 이 2.90 이상인지. 아니면 `npx skills add …` 로 |
 | `gh repo create` 인증/권한 오류 (5단계) | `gh auth login`(repo 스코프) + `git config --global user.name/email` — **STEP 5-0** |
 | `gh skill install` 이 404 (5단계) | repo 이름·`<ID>/<repo>` 오타 · public 인지 · push 됐는지 |
-
-### 따라잡기 — 밀렸을 때
-
-```bash
-cp agent_lab/reference/step1.mcp.json .mcp.json          # 1단계 끝
-cp agent_lab/reference/step3.mcp.json .mcp.json          # 3단계 끝 (+ ols)
-cp agent_lab/reference/server_완성본.py agent_lab/server.py   # 2단계 정답 서버
-cp -r agent_lab/reference/lab-report .claude/skills/lab-report  # 4단계 스킬
-```
-
-전부 되돌리려면:
-
-```bash
-git checkout . && rm -rf .claude/skills/lab-report .claude/skills/scanpy
-```
