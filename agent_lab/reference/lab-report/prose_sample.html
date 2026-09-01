@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>분석 결과</title>
+<style>
+body{font-family:sans-serif;max-width:720px;margin:40px auto;padding:0 16px;color:#222;line-height:1.5}
+h1{font-size:22px}
+table{border-collapse:collapse;font-size:14px}
+td,th{border:1px solid #ccc;padding:6px 10px;text-align:left}
+</style>
+</head>
+<body>
+<h1>흑색종 ICI scRNA-seq 차등발현 분석 결과</h1>
+<p>데이터셋 1214 (GSE120575) · run_id r_int · 16,291 세포. QC 통과 (미토 8.1%).</p>
+<h3>Methods</h3>
+<p>정규화 O, 통합 O. QC 미토 &lt; 20%. DE 반응군 vs 비반응군.</p>
+<h3>결과 (반응군 vs 비반응군)</h3>
+<table>
+<tr><th>세포유형</th><th>유의</th><th>반응군↑</th><th>비반응군↑</th></tr>
+<tr><td>CD8 T세포</td><td>312</td><td>TCF7, IL7R</td><td>PDCD1, TOX</td></tr>
+<tr><td>CD4 T세포</td><td>118</td><td>TCF7</td><td>CTLA4</td></tr>
+</table>
+<p>반응·비반응이 서로 다른 환자에 몰려 교란 가능.</p>
+</body>
+</html>
