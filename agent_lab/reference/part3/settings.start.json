@@ -4,6 +4,7 @@
     "allow": [
       "mcp__biomcp__*",
       "mcp__ols__*",
+      "mcp__lab-mcp__*",
       "Bash(python3 *)",
       "Bash(python *)",
       "Bash(cd *)",
