@@ -19,9 +19,9 @@ mkdir -p .claude
 cp agent_lab/reference/part3/settings.start.json .claude/settings.json
 echo "  ✓ .claude/settings.json  allow 규칙만 (deny 는 ②에서)"
 
-# ②-b 내 서버(lab-mcp)는 시작본으로 — marker_evidence 는 ②에서 학생이 붙여 넣는다
-cp agent_lab/reference/part3/lab_mcp.start.py agent_lab/lab_mcp.py
-echo "  ✓ agent_lab/lab_mcp.py  시작본 (도구 1개 · marker_evidence 는 ②에서)"
+# ②-b 내 서버(lab-mcp)는 ②에서 학생이 직접 만든다 — 시작 상태에는 없다
+rm -f agent_lab/lab_mcp.py
+echo "  ✓ agent_lab/lab_mcp.py  없음 (②에서 직접 만든다)"
 
 # ③ scanpy 스킬은 ① 단계에서 학생이 gh skill install 로 설치한다
 mkdir -p .claude/skills
@@ -39,4 +39,4 @@ echo "  ✓ out/ figures/  정리"
 
 echo
 python3 agent_lab/verify.py
-python3 agent_lab/check.py agent_lab/lab_mcp.py 2>/dev/null || echo "  (lab-mcp 점검은 mcp 패키지가 있는 환경에서만 됩니다)"
+

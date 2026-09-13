@@ -25,3 +25,7 @@ results/
 *.h5ad
 !data/pbmc3k_mini.h5ad
 agent_lab/INSTRUCTOR_PART3.md
+agent_lab/lab_mcp.py
+
+# 리허설 기록(세션 export · JSONL 변환본) — 공개 저장소에 올리지 않음
+rehearsal/
