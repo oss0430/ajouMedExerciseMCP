@@ -4,3 +4,6 @@
 # 이번 개편(2교시 연계)에서 로컬 fetch 서버는 더 쓰지 않습니다.
 # 3단계는 원격 OLS(http), 4단계는 gh/npx 스킬 설치라 uvx 서버가 필요 없습니다.
 # (mcp-server-fetch 제거)
+
+# PART 3 실습 ② — BioMCP (biomcp-python 0.7.3, 도구 36개). .mcp.json: "command": "biomcp", "args": ["run"]
+biomcp-python==0.7.3

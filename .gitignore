@@ -17,3 +17,11 @@ agent_lab/INSTRUCTOR.md
 
 # 4단계에서 학생이 직접 설치하는 스킬 — 배포에 미포함
 .claude/skills/
+
+# PART 3 산출물 · 강사 문서
+figures/
+out/
+results/
+*.h5ad
+!data/pbmc3k_mini.h5ad
+agent_lab/INSTRUCTOR_PART3.md

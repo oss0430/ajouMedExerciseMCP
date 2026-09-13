@@ -89,6 +89,22 @@ def main() -> int:
           "네트워크 정책일 수 있습니다. 실습 3의 원격 부분은 건너뛰어도 됩니다",
           warn_only=True)
 
+    # ── PART 3 (30분 실습) ──────────────────────────────────────────
+    try:
+        import importlib.metadata as md2
+        check("scanpy  (PART 3 ①)", True, f"v{md2.version('scanpy')}")
+    except Exception:
+        check("scanpy  (PART 3 ①)", False, "없음",
+              "이미지 리빌드가 필요합니다 (requirements.txt 에 scanpy). 임시: python3 -m pip install scanpy",
+              warn_only=True)
+    biomcp = shutil.which("biomcp")
+    check("biomcp 명령  (PART 3 ②)", biomcp is not None, biomcp or "PATH 에 없음",
+          "uv tool install biomcp-python==0.7.3  (tools.txt) — 이미지 리빌드 필요", warn_only=True)
+    data = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "pbmc3k_mini.h5ad")
+    check("data/pbmc3k_mini.h5ad  (PART 3)", os.path.exists(data),
+          f"{os.path.getsize(data)//1024} KB" if os.path.exists(data) else "없음",
+          "git pull 로 받아오세요")
+
     env_key = os.environ.get("ANTHROPIC_API_KEY")
     logged_in = os.path.exists(os.path.expanduser("~/.claude.json"))
     check("Claude Code 인증", bool(env_key or logged_in),
@@ -108,7 +124,7 @@ def main() -> int:
             print("  •", f)
         print()
         return 1
-    print("\033[32m준비 완료.  README.md 의 1단계로 가세요.\033[0m\n")
+    print("\033[32m준비 완료.  docs/PART3.md 의 ① 로 가세요.\033[0m\n")
     return 0
 
 
